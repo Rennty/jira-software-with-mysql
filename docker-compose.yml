@@ -1,0 +1,29 @@
+version: "3.0"
+
+services:
+
+  mysql:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=${JSWM_MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${JSWM_MYSQL_DATABASE}
+      - MYSQL_USER=${JSWM_MYSQL_USER}
+      - MYSQL_PASSWORD=${JSWM_MYSQL_PASSWORD}
+    volumes:
+      - vdb:/var/lib/mysql
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_bin
+
+  jira:
+    build:
+      context: ./jira
+    depends_on:
+      - mysql
+    ports:
+      - "8080:8080"
+    volumes:
+      - vjira:/var/lib/atlassian/jira
+
+
+volumes:
+  vdb:
+  vjira:
