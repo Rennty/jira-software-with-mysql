@@ -19,11 +19,13 @@ services:
     depends_on:
       - mysql
     ports:
-      - "8080:8080"
+      - "8105:8080"
     volumes:
       - vjira:/var/lib/atlassian/jira
+      - vjirainstall:/opt/atlassian/jira
 
 
 volumes:
   vdb:
   vjira:
+  vjirainstall:
