@@ -16,14 +16,21 @@ services:
   jira:
     build:
       context: ./jira
+    environment:
+      - VIRTUAL_HOST=${JSWM_VIRTUAL_HOST}
+      - VIRTUAL_PORT=8080
+      - LETSENCRYPT_HOST=${JSWM_LETSENCRYPT_HOST}
+      - LETSENCRYPT_EMAIL=sovanna.hing@gmail.com
     depends_on:
       - mysql
-    ports:
-      - "8105:8080"
     volumes:
       - vjira:/var/lib/atlassian/jira
       - vjirainstall:/opt/atlassian/jira
 
+networks:
+  default:
+    external:
+       name: nginx-proxy
 
 volumes:
   vdb:
