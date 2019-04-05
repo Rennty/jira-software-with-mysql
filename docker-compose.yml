@@ -9,6 +9,7 @@ services:
       - MYSQL_DATABASE=${JSWM_MYSQL_DATABASE}
       - MYSQL_USER=${JSWM_MYSQL_USER}
       - MYSQL_PASSWORD=${JSWM_MYSQL_PASSWORD}
+    restart: unless-stopped
     volumes:
       - vdb:/var/lib/mysql
     command: mysqld --character-set-server=utf8 --collation-server=utf8_bin
@@ -21,6 +22,9 @@ services:
       - VIRTUAL_PORT=8080
       - LETSENCRYPT_HOST=${JSWM_LETSENCRYPT_HOST}
       - LETSENCRYPT_EMAIL=sovanna.hing@gmail.com
+    restart: unless-stopped
+    expose:
+      - 8080
     depends_on:
       - mysql
     volumes:
